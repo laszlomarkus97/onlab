@@ -1,6 +1,8 @@
 import IOLinkHub 
 from IoLinkCommand import *
 from utills import *
+from BallufLampRegisters import *
+from Segments import *
 
 class BallufLamp:
 
@@ -30,12 +32,20 @@ class BallufLamp:
         data = CreateWriteRequestCommand(self.__Port,ModeIndex,ModeSubIndex,mode_data)
         self.__Hub.SendData(data)
 
-    def SetSegments(self, Segment):
-        pass
+    def SetSegments(self, Segments):
+        temp_processData= Segments.returnProcessData()
+        self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
     
-    def SetUserSpecifiedColor(self,Color):
-        pass
-    
+    def SetUserSpecifiedColor(self,port,ColorRGB):
+        temp_data=ColorRGB.returnByteArrayWithoutOnOff()
+        self.__Hub.WriteRequest(port,BallufLampRegister.Usercolor,0,temp_data)
+        
+    def SetAllSegmentWhite(self):
+        whiteSeg=Segments('White','White','White','White','White')
+        temp_processData= whiteSeg.returnProcessData()
+        self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
+
+
     def SetLeds(self, Leds):
         pass
     

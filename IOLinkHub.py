@@ -31,6 +31,12 @@ class IOLinkHub:
         self.__Socket_instance.sendto(data,(self.__IoMasterIP, self.__transmitPort))
         #Receive
 
+    def SendProcessDataOnPort(self,port,data):
+        self.__Socket_instance.sendto(CreateWriteProcessDataCommand(port,data),(self.__IoMasterIP, self.__transmitPort))
+
+    def WriteRequest(self,port,index,subindex,data):
+        self.__Socket_instance.sendto(CreateWriteRequestCommand(port,index,subindex,data),(self.__IoMasterIP, self.__transmitPort))
+
 
     
         
