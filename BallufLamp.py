@@ -1,8 +1,8 @@
 import IOLinkHub 
-from IoLinkCommand import *
+from IoLinkCommand import*
 from utills import *
-from BallufLampRegisters import *
-from Segments import *
+from BallufLampRegisters import*
+from Segments import*
 
 class BallufLamp:
 
@@ -36,12 +36,12 @@ class BallufLamp:
         temp_processData= Segments.returnProcessData()
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
     
-    def SetUserSpecifiedColor(self,port,ColorRGB):
+    def SetUserSpecifiedColor(self,ColorRGB):
         temp_data=ColorRGB.returnByteArrayWithoutOnOff()
-        self.__Hub.WriteRequest(port,BallufLampRegister.Usercolor,0,temp_data)
+        self.__Hub.WriteRequest(self.__Port,BallufLampRegister.Usercolor,0,temp_data)
         
-    def SetAllSegmentWhite(self):
-        whiteSeg=Segments('White','White','White','White','White')
+    def SetAllSegmentRed(self):
+        whiteSeg=Segments(Color('Red'),Color('Red'),Color('User_defined'),Color('Red'),Color('Red'))
         temp_processData= whiteSeg.returnProcessData()
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
 

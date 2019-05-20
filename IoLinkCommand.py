@@ -11,7 +11,10 @@ def CreateHubCommand(Command, Port, Data):
     port_bytes = Port.to_bytes(1,sys.byteorder)
     cmd_bytes = Command.to_bytes(1, sys.byteorder)
     communication_type_bytes = CommunicationType.to_bytes(1, sys.byteorder)
-    return bytearray(lenOfPacket_bytes)+bytearray.fromhex('00')+bytearray(communication_type_bytes)+bytearray(cmd_bytes)+bytearray(port_bytes)+Data
+    ret = bytearray(lenOfPacket_bytes)+bytearray.fromhex('00')+bytearray(communication_type_bytes)+bytearray(cmd_bytes)+bytearray(port_bytes)+Data
+    print('command')
+    PrintByteArray(ret)
+    return ret
 
 #@brief Create a connect command
 #@return bytearray
@@ -40,7 +43,7 @@ def CreateReadRequestCommand(Port,Index,Subindex):
 #@return bytearray
 def CreateWriteRequestCommand(Port,Index,Subindex,Data):
     data_len = len(Data)
-    data_all = NumberToByteArray(Index)+bytearray('00')+NumberToByteArray(Subindex)+NumberToByteArray(data_len)+Data   
+    data_all = NumberToByteArray(Index)+bytearray.fromhex('00')+NumberToByteArray(Subindex)+NumberToByteArray(data_len)+Data
     return CreateHubCommand(CMD_ALWRITEREQ,Port,data_all)
 
 
@@ -58,8 +61,8 @@ def CreateReadProccessDataCommand(Port):
 #@note using CMD_WRITEPROCESSDATA 
 #@return bytearray
 def CreateWriteProcessDataCommand(Port,Data):
-    return CreateHubCommand(CMD_WRITEPROCESSDATA,Port,Data)
-
+    ret = CreateHubCommand(CMD_WRITEPROCESSDATA,Port,Data)
+    return ret
 ##TODO ___________________
 
 #@brief Create a Write Request Command

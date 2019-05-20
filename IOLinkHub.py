@@ -5,20 +5,21 @@ from IoLinkCommand import *
 
 class IOLinkHub:
     __Socket_instance = None 
-    __IoMasterIP='192.168.1.1'
+    __IoMasterIP='192.168.33.249'
     __recievePort = 2000
     __transmitPort = 1999
-    __localAddresIp = '192.168.0.10'
+    __localAddresIp = '192.168.33.250'
     Lamps = {}
     def __init__(self,localAddressIp):
         __localAddresIp=localAddressIp
         try:
-            __Socket_instance=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-            __Socket_instance.bind((self.__localAddresIp,self.__recievePort))
+            self.__Socket_instance=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+            self.__Socket_instance.bind((self.__localAddresIp,self.__recievePort))
         except socket.error:
             print('Connection failed')
             sys.exit()
         self.__sendConnectCmd()
+        
 
 
     def __sendConnectCmd(self):
@@ -32,7 +33,11 @@ class IOLinkHub:
         #Receive
 
     def SendProcessDataOnPort(self,port,data):
-        self.__Socket_instance.sendto(CreateWriteProcessDataCommand(port,data),(self.__IoMasterIP, self.__transmitPort))
+        to_send =CreateWriteProcessDataCommand(port,data)
+        print('Proccess data send: ')
+        PrintByteArray(to_send)
+        self.__Socket_instance.sendto(to_send,(self.__IoMasterIP, self.__transmitPort))
+        self.__Socket_instance.recvfrom(1024)
 
     def WriteRequest(self,port,index,subindex,data):
         self.__Socket_instance.sendto(CreateWriteRequestCommand(port,index,subindex,data),(self.__IoMasterIP, self.__transmitPort))

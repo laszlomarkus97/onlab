@@ -11,8 +11,8 @@ class Color:
             'Yellow':3, #011
             'Blue':4,   #100
             'Orange':5, #101
-            'User defined':6,#110           
-            'White':6 #111
+            'User_defined':6,#110           
+            'White':7 #111
         }
         self.ColorCode=switcher.get(color_name,0)
         self.ColorName=color_name
@@ -26,11 +26,11 @@ class RGB_Color:
     On= 255
     Off =0
     def __init__(self,red,green,blue,on=255,off=0):
-        Red=red
-        Green = green
-        Blue = blue
-        On= on
-        Off =off
+        self.Red=red
+        self.Green = green
+        self.Blue = blue
+        self.On= on
+        self.Off =off
 
     def returnByteArrayWithOnOff(self):
         return NumberToByteArray(self.Red)+ NumberToByteArray(self.Green)+ NumberToByteArray(self.Blue)+NumberToByteArray(self.On)+NumberToByteArray(self.Off)
