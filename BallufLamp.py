@@ -3,6 +3,7 @@ from IoLinkCommand import*
 from utills import *
 from BallufLampRegisters import*
 from Segments import*
+import time
 
 class BallufLamp:
 
@@ -29,33 +30,43 @@ class BallufLamp:
             'Flexible':3, #011
         }
         mode_data = NumberToByteArray(switcher.get(mode,0))
-        data = CreateWriteRequestCommand(self.__Port,ModeIndex,ModeSubIndex,mode_data)
-        self.__Hub.SendData(data)
-
+        self.__Hub.WriteRequest(self.__Port,ModeIndex,ModeSubIndex,mode_data)
+       
+        time.sleep(0.50)
         #Reset Process Data
-        switch_on_data = bytearray.fromhex('ff ff 0f')
-        data = CreateWriteProcessDataCommand(self.__Port,switch_on_data)
-        self.__Hub.SendData(data)
+        if(switcher.get(mode,0)==3):
+            switch_on_data = bytearray.fromhex('ff ff ff')
+            self.__Hub.SendProcessDataOnPort(self.__Port,switch_on_data)
+        time.sleep(0.50)
 
 
     def SetSegments(self, Segments):
         temp_processData= Segments.returnProcessData()
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
+        time.sleep(0.20)
     
     def SetUserSpecifiedColor(self,ColorRGB):
         temp_data=ColorRGB.returnByteArrayWithoutOnOff()
         self.__Hub.WriteRequest(self.__Port,BallufLampRegister.Usercolor,0,temp_data)
+        time.sleep(0.20)
         
     def SetSegmentsToTestThingWorx(self):
         whiteSeg=Segments(Color('Red'),Color('User_defined'),Color('User_defined'),Color('User_defined'),Color('Red'))
         temp_processData= whiteSeg.returnProcessData()
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
+        time.sleep(0.20)
 
 
     def SetLedColor(self,LedNo,Color):
-        Led_Addres= NumberToByteArray(LedNo+BallufLampRegister.Led_color_base)
+        print('Led no:' +str(LedNo))
+        LedNo=LedNo-1
+        if(LedNo>=20):
+            print('led no out of range')
+            return
+        Led_Address= LedNo+BallufLampRegister.Led_color_base
         temp_data = Color.returnByteArrayWithOnOff()
-        self.__Hub.WriteRequest(self.__Port,Led_Addres,0,temp_data)
+        self.__Hub.WriteRequest(self.__Port,Led_Address,0,temp_data)
+        time.sleep(0.20)
 
     
 

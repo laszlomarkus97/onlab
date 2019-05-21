@@ -4,13 +4,20 @@ from BallufLamp import BallufLamp
 from IOLinkHub import IOLinkHub
 from Color import *
 
+#Params: local and Hub IP
 hub = IOLinkHub('192.168.33.250','192.168.33.249')
 for PortNo in range(0, 8):   
     BallufLamp().AttachToHub(hub,PortNo)
+    
+#Set mode to segment mode
+for PortNo in range(0, 8):
+    hub.Lamps[PortNo].SetMode('Segment')
 
+#Set to Green- 3 user spec-Green segment color
 for PortNo in range(0, 8):
     hub.Lamps[PortNo].SetSegmentsToTestThingWorx()
-    
+
+#Start flask
 app = Flask(__name__)
 
 
