@@ -10,8 +10,9 @@ class IOLinkHub:
     __transmitPort = 1999
     __localAddresIp = '192.168.33.250'
     Lamps = {}
-    def __init__(self,localAddressIp):
-        __localAddresIp=localAddressIp
+    def __init__(self,localAddressIp,IoMasterIP):
+        self.__localAddresIp=localAddressIp
+        self.__IoMasterIP=IoMasterIP
         try:
             self.__Socket_instance=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
             self.__Socket_instance.bind((self.__localAddresIp,self.__recievePort))
