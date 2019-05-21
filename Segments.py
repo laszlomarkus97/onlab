@@ -40,3 +40,7 @@ class Segment:
 
     def get_offset(self):
         return self.offset
+
+
+PrintByteArray(Segments(Color('Red'), Color('Red'), Color('Red'),
+               Color('Red'), Color('Red')).returnProcessData())
