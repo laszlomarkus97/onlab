@@ -17,6 +17,10 @@ for PortNo in range(0, 8):
 for PortNo in range(0, 8):
     hub.Lamps[PortNo].SetSegmentsToTestThingWorx()
 
+for PortNo in range(0, 8):
+    color1 = RGB_Color(255, 255, 255)
+    hub.Lamps[PortNo].SetUserSpecifiedColor(color1)
+
 #Start flask
 app = Flask(__name__)
 
