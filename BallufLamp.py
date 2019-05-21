@@ -32,6 +32,12 @@ class BallufLamp:
         data = CreateWriteRequestCommand(self.__Port,ModeIndex,ModeSubIndex,mode_data)
         self.__Hub.SendData(data)
 
+        #Reset Process Data
+        switch_on_data = bytearray.fromhex('ff ff 0f')
+        data = CreateWriteProcessDataCommand(self.__Port,switch_on_data)
+        self.__Hub.SendData(data)
+
+
     def SetSegments(self, Segments):
         temp_processData= Segments.returnProcessData()
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
@@ -46,8 +52,11 @@ class BallufLamp:
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
 
 
-    def SetLeds(self, Leds):
-        pass
+    def SetLedColor(self,LedNo,Color):
+        Led_Addres= NumberToByteArray(LedNo+BallufLampRegister.Led_color_base)
+        temp_data = Color.returnByteArrayWithOnOff()
+        self.__Hub.WriteRequest(self.__Port,Led_Addres,0,temp_data)
+
     
 
 

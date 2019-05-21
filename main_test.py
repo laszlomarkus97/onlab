@@ -6,6 +6,9 @@ hub = IOLinkHub('192.168.33.250','192.168.33.249')
 for PortNo in range(0, 8):   
     BallufLamp().AttachToHub(hub,PortNo)
 
+for PortNo in range(0, 8):   
+    BallufLamp().SetMode('Flexible')
+
 for PortNo in range(0, 8):
     hub.Lamps[PortNo].SetAllSegmentRed()
 
