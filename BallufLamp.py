@@ -40,8 +40,8 @@ class BallufLamp:
         temp_data=ColorRGB.returnByteArrayWithoutOnOff()
         self.__Hub.WriteRequest(self.__Port,BallufLampRegister.Usercolor,0,temp_data)
         
-    def SetAllSegmentRed(self):
-        whiteSeg=Segments(Color('Red'),Color('Red'),Color('User_defined'),Color('Red'),Color('Red'))
+    def SetSegmentsToTestThingWorx(self):
+        whiteSeg=Segments(Color('Red'),Color('User_defined'),Color('User_defined'),Color('User_defined'),Color('Red'))
         temp_processData= whiteSeg.returnProcessData()
         self.__Hub.SendProcessDataOnPort(self.__Port,temp_processData)
 
