@@ -66,8 +66,6 @@ def CreateWriteProcessDataCommand(Port,Data):
 ##TODO ___________________
 
 #@brief Create a Write Request Command
-#@param
-#@param
 #@return bytearray
 def CreateSetPortConfigCommand():
     print('NOT implemented function call')

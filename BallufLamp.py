@@ -50,15 +50,6 @@ class BallufLamp:
         pass
     
 
-    #state functions
 
-    def SetSegment(self, SegmentNumber,Color):
-        pass
-    
-    def SetLedColor(self, LedNo,RGB,On=255,Off=0):
-        pass
-
-    def SetLed(self,LedNo,enable):
-        pass
     
     

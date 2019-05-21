@@ -31,7 +31,6 @@ class IOLinkHub:
 
     def SendData(self,data):
         self.__Socket_instance.sendto(data,(self.__IoMasterIP, self.__transmitPort))
-        #Receive
 
     def SendProcessDataOnPort(self,port,data):
         to_send =CreateWriteProcessDataCommand(port,data)
