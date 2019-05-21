@@ -20,7 +20,7 @@ class BallufLamp:
     #stateless functions
 
     def SetMode(self,mode):
-        ModeIndex = 0x00
+        ModeIndex = BallufLampRegister.Mode_Index
         ModeSubIndex = 0x00
         switcher = {
             'Segment':0,    #000

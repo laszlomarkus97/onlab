@@ -9,8 +9,11 @@ for PortNo in range(0, 8):
 for PortNo in range(0, 8):   
     hub.Lamps[PortNo].SetMode('Flexible')
 
+for PortNo in range(0, 8):   
+    hub.Lamps[PortNo].SetLedColor(RGB_Color(130,40,90))
+    
 for PortNo in range(0, 8):
-    hub.Lamps[PortNo].SetAllSegmentRed()
+    hub.Lamps[PortNo].SetSegmentsToTestThingWorx()
 
 for PortNo in range(0, 8):
     hub.Lamps[PortNo].SetUserSpecifiedColor(RGB_Color(255,0,154))
