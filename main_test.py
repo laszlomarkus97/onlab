@@ -7,7 +7,7 @@ for PortNo in range(0, 8):
     BallufLamp().AttachToHub(hub,PortNo)
 
 for PortNo in range(0, 8):   
-    BallufLamp().SetMode('Flexible')
+    hub.Lamps[PortNo].SetMode('Flexible')
 
 for PortNo in range(0, 8):
     hub.Lamps[PortNo].SetAllSegmentRed()
